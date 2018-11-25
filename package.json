@@ -11,14 +11,18 @@
     "axios": "^0.18.0",
     "babel-plugin-import": "^1.11.0",
     "babel-polyfill": "^6.26.0",
+    "bizcharts": "^3.4.0",
+    "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "dva": "^2.4.1",
     "es6-promise": "^4.2.5",
     "event-source-polyfill": "^1.0.4",
+    "moment": "^2.22.2",
     "qs": "^6.5.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
+    "@antv/data-set": "^0.10.1",
     "babel-plugin-dva-hmr": "^0.3.2",
     "eslint": "^4.14.0",
     "eslint-config-umi": "^0.1.1",

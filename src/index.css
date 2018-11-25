@@ -2,4 +2,6 @@
 html, body, :global(#root) {
   height: 100%;
 }
-
+:global(.ant-layout-sider){
+  min-height: 100vh
+}
