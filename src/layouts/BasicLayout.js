@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import {Link,withRouter} from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
 const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
+@withRouter
 class BasicLayout extends Component {
   state = {
     collapsed: false,
@@ -11,6 +12,10 @@ class BasicLayout extends Component {
     this.setState({
       collapsed: !this.state.collapsed,
     });
+  }
+  logout=()=>{
+    sessionStorage.clear();
+    this.props.history.push("/user/login");
   }
   render() {
     return (
@@ -55,6 +60,7 @@ class BasicLayout extends Component {
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
+            <p onClick={this.logout} className="rt mr20">退出登录</p>
           </Header>
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             {this.props.children}

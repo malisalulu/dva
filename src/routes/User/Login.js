@@ -21,15 +21,16 @@ class NormalLoginForm extends Component {
        username:"lilu",
        password:"123456"
      };
-     doLogin(params, function(res) {
-
-     })
+     // doLogin(params, function(res) {
+     //
+     // })
   }
   onTabChange = type => {
     this.setState({ type });
   };
   onSubmit=params=>{
-    console.log(params)
+    sessionStorage.setItem("token","1223sdfs");
+    this.props.history.push({ pathname : '/i18n' ,query : { day: 'Friday'} });
   }
   handleSubmit = (e) => {
     e.preventDefault();

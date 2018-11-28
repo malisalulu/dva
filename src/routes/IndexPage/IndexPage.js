@@ -29,8 +29,6 @@ const columns = [{
 @connect(({ dispatch,products,example }) => ({
   products,example
 }))
-
-
 class IndexPage extends React.Component {
   constructor() {
     super();
@@ -39,8 +37,11 @@ class IndexPage extends React.Component {
       visible: false
     };
   }
+  
+  componentDidMount(){
+    // console.log(this.props.location.query.type)
+  }
   showModal = () => {
-    console.log(this.props.products);
     this.setState({ visible: true });
   }
 
@@ -55,6 +56,7 @@ class IndexPage extends React.Component {
     } else {
       lang="en_US";
     }
+    sessionStorage.setItem("lang",lang);
     this.props.dispatch({
       type: 'example/changeLang',
       payload: {'lang':lang},
@@ -62,7 +64,6 @@ class IndexPage extends React.Component {
   }
 
   render() {
-    const { locale } = this.state;
     const { products,example } = this.props;
     const info = () => {
       Modal.info({
@@ -79,6 +80,7 @@ class IndexPage extends React.Component {
     return (
       <div>
         <p><Link to="/products">products</Link></p>
+        <p><Link to="/i18n">i18n</Link></p>
         <p>{example.localeLang}</p>
         <div className="change-locale">
           <span style={{ marginRight: 16 }}>Change locale of components: </span>
@@ -126,11 +128,6 @@ class IndexPage extends React.Component {
             <p>Locale Modal</p>
           </Modal>
         </div>
-        {/*
-          <LocaleProvider locale={locale}>
-          <Page key={locale ? locale.locale : 'en'/>
-        </LocaleProvider>
-        */}
       </div>
     );
   }

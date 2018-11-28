@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Router, Route, Switch } from 'dva/router';
-
+import { Router, Route, Switch,Redirect } from 'dva/router';
 
 import BasicLayout from './layouts/BasicLayout'
 import AppLayout from './layouts/AppLayout'
@@ -10,12 +9,17 @@ import Login from './routes/User/Login';
 import Register from './routes/User/Register';
 import Analysis from './routes/Dashboard/Analysis';
 import IndexPage from './routes/IndexPage/IndexPage';
+import I18n from './routes/I18n/I18n';
 
-// @connect(({ dispatch,products,example }) => ({
-//   products,example
-// }))
+class AuthRequiredRoute extends Route{
+    render() {
+        let { component: Component, ...rest} = this.props;
+        return sessionStorage.getItem("token")?(<Route {...rest} render={(props) => ( <Component {...props} /> )}/> ) : (<Redirect to="/user/login"></Redirect>)
+    }
+}
 
-function RouterConfig({ history }) {
+// function RouterConfig({ history }) {
+const RouterConfig = ({ history }) => {
   return (
     <AppLayout>
       <Router history={history}>
@@ -24,9 +28,10 @@ function RouterConfig({ history }) {
           <Route path="/user/login"  component={Login} />
           <Route path="/user/register"  component={Register} />
           <BasicLayout>
-            <Route path="/dashboard/analysis"  component={Analysis} />
-            <Route path="/products"  component={Products} />
-            <Route path="/IndexPage"  component={IndexPage} />
+            <AuthRequiredRoute path="/dashboard/analysis"  component={Analysis} />
+            <AuthRequiredRoute path="/products"  component={Products} />
+            <AuthRequiredRoute path="/indexPage"  component={IndexPage} />
+            <AuthRequiredRoute path="/i18n"  component={I18n} />
           </BasicLayout>
         </Switch>
       </Router>

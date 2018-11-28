@@ -1,17 +1,18 @@
+import { doLogin } from '../utils/api'
 const delay = (timeout) => {
   return new Promise(resolve => {
     setTimeout(resolve, timeout);
   });
 };
+let lang = (navigator.languages && navigator.languages[0]) || navigator.language;
+let currentLang=lang=="zh-CN"?"zh_CN":"en_US";
+let localeLang=sessionStorage.getItem("lang")?sessionStorage.getItem("lang"):currentLang;
 export default {
-
   namespace: 'example',
-
   state: {
     count: 0,
-    localeLang:"en_US"
+    localeLang:localeLang
   },
-
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
     },
@@ -22,7 +23,12 @@ export default {
       yield put({ type: 'save' });
     },
     *snycADD({ payload }, { call, put }){
-      // yield call(delay, 1000);
+      yield call(delay, 1000);
+      // let params = {
+      //    username:"lilu",
+      //    password:"123456"
+      //  };
+      // const response = yield call(doLogin,params);
       yield put({ type: 'add' ,payload});
     }
   },
