@@ -10,6 +10,9 @@ import Register from './routes/User/Register';
 import Analysis from './routes/Dashboard/Analysis';
 import IndexPage from './routes/IndexPage/IndexPage';
 import I18n from './routes/I18n/I18n';
+//表单
+import BasicForm from './routes/Form/BasicForm';
+
 
 class AuthRequiredRoute extends Route{
     render() {
@@ -32,6 +35,7 @@ const RouterConfig = ({ history }) => {
             <AuthRequiredRoute path="/products"  component={Products} />
             <AuthRequiredRoute path="/indexPage"  component={IndexPage} />
             <AuthRequiredRoute path="/i18n"  component={I18n} />
+          <AuthRequiredRoute path="/form/basic"  component={BasicForm} />
           </BasicLayout>
         </Switch>
       </Router>
