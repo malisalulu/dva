@@ -1,0 +1,19 @@
+:global(.resultList){
+
+}
+:global(.rotateActive .arrow){
+  background: red;
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+.resultList{
+  transition: all ease-out 300ms;
+  -webkit-transition: all ease-out 300ms;
+}
+.rotateActive{
+  .arrow{
+    background: red;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+  }  
+}

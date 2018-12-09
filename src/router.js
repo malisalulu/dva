@@ -12,6 +12,8 @@ import IndexPage from './routes/IndexPage/IndexPage';
 import I18n from './routes/I18n/I18n';
 //表单
 import BasicForm from './routes/Form/BasicForm';
+import Pie from './routes/Echarts/Pie';
+
 
 
 class AuthRequiredRoute extends Route{
@@ -35,7 +37,8 @@ const RouterConfig = ({ history }) => {
             <AuthRequiredRoute path="/products"  component={Products} />
             <AuthRequiredRoute path="/indexPage"  component={IndexPage} />
             <AuthRequiredRoute path="/i18n"  component={I18n} />
-          <AuthRequiredRoute path="/form/basic"  component={BasicForm} />
+            <AuthRequiredRoute path="/form/basic"  component={BasicForm} />
+            <AuthRequiredRoute path="/echarts/pie"  component={Pie} />
           </BasicLayout>
         </Switch>
       </Router>
