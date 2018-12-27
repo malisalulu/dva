@@ -109,9 +109,8 @@ class Pie extends Component {
                   <button className={styles.arrow}>旋转</button>
                   <span></span>
                   <div className="resultContent">
-                    <p>生生世世生生世世生生世世生生世世生生世世生生世世生生世世是谁
-                      生生世世生生世世生生世世生生世世生生世世生生世世生生世世是谁
-                      生生世世生生世世生生世世生生世世生生世世生生世世生生世世是谁
+                    <p>
+                      branch A 
                     </p>
                   </div>
                 </div>
