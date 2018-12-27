@@ -110,7 +110,7 @@ class Pie extends Component {
                   <span></span>
                   <div className="resultContent">
                     <p>
-                      branch A 
+                      branch B
                     </p>
                   </div>
                 </div>
