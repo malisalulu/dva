@@ -26,13 +26,16 @@
 // export default connect(({ products,example }) => ({
 //   products,example
 // }))(Products);
+
+
 import React, { Component } from 'react';
-import { DatePicker,Button,Table,Form,Pagination } from 'antd';
+import { DatePicker,Button,Table,Form,Pagination,Popconfirm } from 'antd';
 import moment from 'moment';
 import styles from './Products.less'
 
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const RangePicker = DatePicker.RangePicker;
 const FormItem = Form.Item;
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const dataSource = [{
   key: '1',
   name: '胡彦斌',
@@ -97,8 +100,27 @@ const columns2 = [{
   ),
 }];
 
-function onChange(dates, dateStrings) {
-  console.log('From: ', dates[0], ', to: ', dates[1]);
+function getDay(day){
+       var today = new Date();
+       var targetday_milliseconds=today.getTime() + 1000*60*60*24*day;
+       today.setTime(targetday_milliseconds); //注意，这行是关键代码
+       var tYear = today.getFullYear();
+       var tMonth = today.getMonth();
+       var tDate = today.getDate();
+       tMonth = doHandleMonth(tMonth + 1);
+       tDate = doHandleMonth(tDate);
+       var h = doHandleMonth(today.getHours());
+       var mm = doHandleMonth(today.getMinutes());
+       var s = doHandleMonth(today.getSeconds());
+       return tYear+"-"+tMonth+"-"+tDate+' '+h+':'+mm+':'+s;
+}
+
+function doHandleMonth(month){
+       var m = month;
+       if(month.toString().length == 1){
+          m = "0" + month;
+       }
+       return m;
 }
 function onChangePage(page, pageSize) {
   console.log(page, pageSize);
@@ -109,18 +131,41 @@ function onShowSizeChange(current, size){
 export default class Analysis extends Component {
   state={
     loading: false,
+    startTime:'',
+    endTime:''
+  }
+  componentWillMount(){
+    //获取最近7天日期
+    let endTime=getDay(0);//当天日期
+    let startTime=getDay(-7);//7天前日期
+    this.setState({'startTime':startTime});
+    this.setState({'endTime':endTime});
+  }
+  onChange=(dates, dateStrings)=>{
+    this.setState({'startTime':dateStrings[0]});
+    this.setState({'endTime':dateStrings[1]});
   }
   enterLoading = () => {
     this.setState({ loading: true });
   }
   render() {
+    const { startTime, endTime } = this.state;
+    console.log(startTime, endTime);
     return (
       <div className="Analysis">
         <div className={styles.search}>
-          <RangePicker  size='default'  onChange={onChange}/>
-          <Button className={styles.button} type="primary" loading={this.state.loading} onClick={this.enterLoading}>
-            搜索
-          </Button>
+          <RangePicker
+          value={[moment(startTime, dateFormat), moment(endTime, dateFormat)]}
+          format="YYYY-MM-DD HH:mm:ss"
+          showTime
+          onChange={this.onChange}
+        />
+
+        <Popconfirm title="Delete?" onConfirm={this.enterLoading}>
+            <Button className={styles.button} type="primary" loading={this.state.loading} onClick={this.enterLoading}>
+              搜索
+            </Button>
+        </Popconfirm>
         </div>
         <div className={styles.tables}>
           <Table dataSource={dataSource} columns={columns} bordered pagination={false} className={styles.table1}/>
