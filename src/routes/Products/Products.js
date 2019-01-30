@@ -1,104 +1,12 @@
-// import React from 'react';
-// import { connect } from 'dva';
-// import { LocaleProvider, Pagination, DatePicker, TimePicker, Calendar,
-//   Popconfirm, Table, Modal, Button, Select, Transfer, Radio } from 'antd';
-// import ProductList from '../../components/ProductList';
-//
-// const Products = ({ dispatch, products,example }) => {
-//   console.log(products,example)
-//   function handleDelete(id) {
-//     dispatch({
-//       type: 'products/delete',
-//       payload: id,
-//     });
-//   }
-//   return (
-//     <div>
-//       <h2>List of Products</h2>
-//       <DatePicker />
-//       <TimePicker />
-//       <ProductList onDelete={handleDelete} products={products} />
-//     </div>
-//   );
-// };
-//
-// // export default Products;
-// export default connect(({ products,example }) => ({
-//   products,example
-// }))(Products);
-
-
 import React, { Component } from 'react';
-import { DatePicker,Button,Table,Form,Pagination,Popconfirm } from 'antd';
+import { DatePicker,Button,Table,Form,Pagination,Popconfirm,Select } from 'antd';
 import moment from 'moment';
 import styles from './Products.less'
 
 const RangePicker = DatePicker.RangePicker;
 const FormItem = Form.Item;
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
-const dataSource = [{
-  key: '1',
-  name: '胡彦斌',
-  age: 32,
-  address: '西湖区湖底公园1号'
-}, {
-  key: '2',
-  name: '胡彦祖',
-  age: 42,
-  address: '西湖区湖底公园1号'
-}];
-
-const columns = [{
-  title: '姓名',
-  dataIndex: 'name',
-  key: 'name',
-}, {
-  title: '年龄',
-  dataIndex: 'age',
-  key: 'age',
-}, {
-  title: '住址',
-  dataIndex: 'address',
-  key: 'address',
-}];
-const dataSource2= [{
-  key: '1',
-  name: 'John Brown',
-  age: 32,
-  address: 'New York No. 1 Lake Park',
-  tags: 1,
-}, {
-  key: '2',
-  name: 'Jim Green',
-  age: 42,
-  address: 'London No. 1 Lake Park',
-  tags: 0,
-}, {
-  key: '3',
-  name: 'Joe Black',
-  age: 32,
-  address: 'Sidney No. 1 Lake Park',
-  tags: 1
-}];
-
-const columns2 = [{
-  title: '姓名',
-  dataIndex: 'name'
-}, {
-  title: '年龄',
-  dataIndex: 'age'
-}, {
-  title: '住址',
-  dataIndex: 'address'
-},{
-  title: 'Tags',
-  dataIndex: 'tags',
-  render: tags => (
-    <div>
-      {tags==1?(<span>是</span>):(<span>否</span>)}
-    </div>
-  ),
-}];
+const Option = Select.Option;
 
 function getDay(day){
        var today = new Date();
@@ -136,8 +44,12 @@ export default class Analysis extends Component {
   }
   componentWillMount(){
     //获取最近7天日期
-    let endTime=getDay(0);//当天日期
-    let startTime=getDay(-7);//7天前日期
+    // let endTime=getDay(0);//当天日期
+    // let startTime=getDay(-7);//7天前日期
+    let time=getDay(-1);
+    console.log(time,'time');
+    let startTime=time.substring(0,10)+'00:00:00';
+    let endTime=time.substring(0,10)+'23:59:59';
     this.setState({'startTime':startTime});
     this.setState({'endTime':endTime});
   }
@@ -145,34 +57,37 @@ export default class Analysis extends Component {
     this.setState({'startTime':dateStrings[0]});
     this.setState({'endTime':dateStrings[1]});
   }
-  enterLoading = () => {
-    this.setState({ loading: true });
+  enterLoading = (e) => {
+    e.stopPropagation();
+  }
+  handleChange=(val)=>{
+    console.log(val);
+  }
+  outerClick=()=>{
+    alert(1);
   }
   render() {
     const { startTime, endTime } = this.state;
     console.log(startTime, endTime);
     return (
       <div className="Analysis">
-        <div className={styles.search}>
-          <RangePicker
-          value={[moment(startTime, dateFormat), moment(endTime, dateFormat)]}
-          format="YYYY-MM-DD HH:mm:ss"
-          showTime
-          onChange={this.onChange}
-        />
+        {/* <div className={styles.search} onClick={this.outerClick} style={{ position: "absolute", width: '100%', height: 40}}>
 
-        <Popconfirm title="Delete?" onConfirm={this.enterLoading}>
-            <Button className={styles.button} type="primary" loading={this.state.loading} onClick={this.enterLoading}>
-              搜索
-            </Button>
-        </Popconfirm>
-        </div>
-        <div className={styles.tables}>
-          <Table dataSource={dataSource} columns={columns} bordered pagination={false} className={styles.table1}/>
-        <Table dataSource={dataSource2} columns={columns2} bordered pagination={false} className={styles.table2}/>
-          <Pagination showSizeChanger showQuickJumper defaultCurrent={1} total={50}
-            onChange={onChangePage}
-            onShowSizeChange={onShowSizeChange}/>
+        </div> */}
+        <div style={{ position: "relative", top: 4}}>
+          <RangePicker
+            value={[moment(startTime, dateFormat), moment(endTime, dateFormat)]}
+            format="YYYY-MM-DD HH:mm:ss"
+            showTime
+            onChange={this.onChange}
+          />
+          <Select defaultValue="lucy" style={{ width: 120 }} onChange={this.handleChange}>
+              <Option value="jack">Jack</Option>
+              <Option value="lucy">Lucy</Option>
+          </Select>
+          <Button className="button" type="primary" onClick={(e)=>this.enterLoading(e)}>
+            搜索
+          </Button>
         </div>
       </div>
     )

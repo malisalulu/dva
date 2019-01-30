@@ -1,7 +1,10 @@
 .search{
-  .button{
-    margin-left: 20px;
-  }
+  z-index: 9;
+  display: flex;
+  flex-grow: 1;
+  padding: 10px;
+  // background: #ddd;
+
 }
 .tables{
   .table1{
@@ -11,4 +14,11 @@
   .table2{
     margin: 20px 0;
   }
+}
+:global(.ant-select){
+  z-index: 99;
+}
+:global(.button){
+  z-index: 99;
+  margin-left: 20px;
 }
