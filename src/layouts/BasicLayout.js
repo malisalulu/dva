@@ -3,6 +3,7 @@ import {Link,withRouter} from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
 const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
+console.log(window.location.href,'basic window.location')
 @withRouter
 class BasicLayout extends Component {
   state = {
@@ -20,7 +21,7 @@ class BasicLayout extends Component {
   render() {
     return (
       <Layout>
-        <Sider
+      {window.self === window.top?<Sider
           trigger={null}
           collapsible
           collapsed={this.state.collapsed}
@@ -52,7 +53,8 @@ class BasicLayout extends Component {
             <span>Option 3</span>
           </Menu.Item>
         </Menu>
-        </Sider>
+        </Sider>:null}
+        
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }}>
             <Icon

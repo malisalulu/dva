@@ -21,8 +21,14 @@ class AppLayout extends Component {
   }
   render() {
     const { products,example } = this.props;
-    let currentLang=sessionStorage.getItem("lang");
-    let localeLang=currentLang?currentLang:example.localeLang;
+    let localeLang;
+//  let currentLang=sessionStorage.getItem("lang");
+//  let localeLang=currentLang?currentLang:example.localeLang;
+	if(window.location.href.indexOf('?')!==-1&&window.location.href.indexOf('en')!==-1){
+    		localeLang = 'en_US'
+    }else{
+    		localeLang = 'zh_CN'
+    }
     intl.init({
       currentLocale: localeLang.split('-')[0],
       locales: {
@@ -31,6 +37,7 @@ class AppLayout extends Component {
       }
     })
     intl.options.currentLocale = localeLang==='zh_CN'?'zh':'en';
+    
     return (
       <div className="appLayout">
         <LocaleProvider locale={langType[localeLang]}>

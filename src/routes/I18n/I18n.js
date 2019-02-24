@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import intl from 'react-intl-universal';
 
+console.log(window.location.href,'window.location')
 class I18n extends Component {
   constructor(props) {
     super(props)
@@ -41,7 +42,10 @@ class I18n extends Component {
   //   }
   // }
   componentDidMount(){
-
+  	if(window.location.href.indexOf('?')!==-1&&window.location.href.indexOf('en')!==-1){
+  		intl.options.currentLocale = 'en'
+    		this.forceUpdate()
+  	}
   }
   changeLang() {
     const lang = intl.options.currentLocale

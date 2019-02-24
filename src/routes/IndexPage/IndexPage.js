@@ -7,6 +7,7 @@ import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import en_US from 'antd/lib/locale-provider/en_US';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import {tags} from '../../services/example'
 const langType={
   "en_US":en_US,
   "zh_CN":zh_CN
@@ -37,8 +38,9 @@ class IndexPage extends React.Component {
       visible: false
     };
   }
-  
+
   componentDidMount(){
+    tags()
     // console.log(this.props.location.query.type)
   }
   showModal = () => {

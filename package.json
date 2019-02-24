@@ -17,6 +17,7 @@
     "echarts": "^4.2.0-rc.2",
     "es6-promise": "^4.2.5",
     "event-source-polyfill": "^1.0.4",
+    "mockjs": "^1.0.1-beta3",
     "moment": "^2.22.2",
     "qs": "^6.5.2",
     "react": "^16.2.0",
