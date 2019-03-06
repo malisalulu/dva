@@ -42,21 +42,31 @@ class I18n extends Component {
   //   }
   // }
   componentDidMount(){
+  	console.log(window.location.href,'window.location.href');
   	if(window.location.href.indexOf('?')!==-1&&window.location.href.indexOf('en')!==-1){
   		intl.options.currentLocale = 'en'
     		this.forceUpdate()
   	}
+//	document.getElementById('button').onclick=function(){
+//      window.top.parent.postMessage('来自iframe的信息','*'); //window.postMessage
+//  }
   }
   changeLang() {
     const lang = intl.options.currentLocale
     intl.options.currentLocale = lang==='zh'?'en':'zh'
     this.forceUpdate()
   }
-
+  ziFn=()=>{
+      console.log('我是子页面');
+  }
+  func=()=>{
+    window.top.parent.postMessage('来自iframe的信息','*');
+ }
   render() {
     let list = this.state.list;
     return (
       <div className="app">
+        <input id="button" type="button" value="调用parent.html中的say()函数" onClick={this.func}/>
         <Link to={{pathname:'/indexPage',query:{type:'open'}}}>indexPage</Link>
         <h4>react 国际化demo展示</h4>
         <button onClick={this.changeLang}>切换</button>
